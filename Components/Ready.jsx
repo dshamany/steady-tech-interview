@@ -46,29 +46,35 @@ function Orders({ state, setState, setPage }) {
     const [reloadCount, setReloadCount] = useState(0);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => setPage("orders")}>
+        <View style={(styles.container, styles.topBar)}>
+            <TouchableOpacity onPress={() => setPage("Orders")}>
                 <View style={{ width: 120, height: 40, marginTop: 30 }}>
-                    <Text style={{ fontSize: 16 }}>Back</Text>
+                    <Text style={{ fontSize: 16 }}>Orders</Text>
                 </View>
             </TouchableOpacity>
             <Text style={styles.title}>Ready</Text>
-            <FlatList
-                style={styles.list}
-                data={state.ready}
-                renderItem={({ item, index }) => (
-                    <Item
-                        state={state}
-                        setState={setState}
-                        setPage={setPage}
-                        item={item}
-                        index={index}
-                        reloadCount={reloadCount}
-                        setReloadCount={setReloadCount}
-                    />
-                )}
-                keyExtractor={(_, index) => String(index)}
-            />
+            {state.ready.length ? (
+                <FlatList
+                    style={styles.list}
+                    data={state.ready}
+                    renderItem={({ item, index }) => (
+                        <Item
+                            state={state}
+                            setState={setState}
+                            setPage={setPage}
+                            item={item}
+                            index={index}
+                            reloadCount={reloadCount}
+                            setReloadCount={setReloadCount}
+                        />
+                    )}
+                    keyExtractor={(_, index) => String(index)}
+                />
+            ) : (
+                <Text style={{ fontSize: 20, color: "#999" }}>
+                    Orders are not ready at this time.
+                </Text>
+            )}
         </View>
     );
 }
@@ -110,9 +116,10 @@ const styles = StyleSheet.create({
     list: {},
     topBar: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "flex-start",
-        padding: 30,
+        padding: 10,
+        paddingTop: 30,
     },
 });
 

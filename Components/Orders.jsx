@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -23,8 +23,7 @@ const Item = ({
                 s.orders.splice(index, 1);
                 s.ready.push(item);
                 setState(s);
-                setReloadCount(reloadCount);
-                setPage("ready");
+                setPage("Ready");
             }}
         >
             <Text style={styles.customerName}>{item.customer}</Text>
@@ -51,10 +50,10 @@ function Orders({ state, setState, setPage }) {
     const [reloadCount, setReloadCount] = useState(0);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => setPage("menu")}>
+        <View style={(styles.container, styles.topBar)}>
+            <TouchableOpacity onPress={() => setPage("Menu")}>
                 <View style={{ width: 120, height: 40, marginTop: 30 }}>
-                    <Text style={{ fontSize: 16 }}>Back</Text>
+                    <Text style={{ fontSize: 16 }}>Menu</Text>
                 </View>
             </TouchableOpacity>
             <Text style={styles.title}>Orders</Text>
@@ -121,9 +120,10 @@ const styles = StyleSheet.create({
     list: {},
     topBar: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "flex-start",
-        padding: 30,
+        padding: 10,
+        paddingTop: 30,
     },
 });
 

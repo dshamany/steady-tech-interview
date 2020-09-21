@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+    StyleSheet,
+    TabBarIOS,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 import Menu from "./Components/Menu";
 import Orders from "./Components/Orders";
@@ -12,22 +18,15 @@ const MENU = [
     { id: "CAL3", name: "Expresso", duration: 15 },
 ];
 
-export default function App() {
-    const [state, setState] = useState({
-        menu: MENU,
-        orders: [],
-        ready: [],
-        customer: "",
-    });
-    const [page, setPage] = useState("menu");
+const Page = (state, setState, page, setPage) => {
     switch (page) {
-        case "menu":
+        case "Menu":
             return <Menu state={state} setState={setState} setPage={setPage} />;
-        case "orders":
+        case "Orders":
             return (
                 <Orders state={state} setState={setState} setPage={setPage} />
             );
-        case "ready":
+        case "Ready":
             return (
                 <Ready state={state} setState={setState} setPage={setPage} />
             );
@@ -38,6 +37,19 @@ export default function App() {
                 </View>
             );
     }
+};
+
+export default function App() {
+    const [state, setState] = useState({
+        menu: MENU,
+        orders: [],
+        ready: [],
+        customer: "",
+    });
+
+    const [page, setPage] = useState("Menu");
+
+    return Page(state, setState, page, setPage);
 }
 
 const styles = StyleSheet.create({

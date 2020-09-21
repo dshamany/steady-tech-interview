@@ -17,7 +17,7 @@ const Item = ({ item, state, setState, setPage }) => {
                 item.customer = s.customer;
                 s.orders.push(item);
                 setState(s);
-                setPage("orders");
+                setPage("Orders");
             }}
         >
             <View style={styles.item}>
@@ -50,7 +50,7 @@ const Item = ({ item, state, setState, setPage }) => {
     );
 };
 
-function Menu({ state, setState, setPage }) {
+function Menu({ state, setState, page, setPage }) {
     const [customer, setCustomer] = useState("");
 
     useEffect(() => {
@@ -60,7 +60,8 @@ function Menu({ state, setState, setPage }) {
     });
 
     return (
-        <View>
+        <View style={(styles.container, styles.topBar)}>
+            <Text style={styles.title}>Menu</Text>
             <TextInput
                 placeholder="Customer Name"
                 style={{
@@ -73,10 +74,10 @@ function Menu({ state, setState, setPage }) {
                 }}
                 onChangeText={(e) => {
                     let s = state;
-                    s.customer = e;
+                    setCustomer(e);
                     setState(s);
                 }}
-                value={customer}
+                value={state.customer || customer}
             />
 
             <SafeAreaView>
@@ -99,6 +100,10 @@ function Menu({ state, setState, setPage }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 0,
+        padding: 10,
+    },
     list: {
         paddingTop: 25,
     },
@@ -111,6 +116,18 @@ const styles = StyleSheet.create({
     durationView: {
         flex: 1,
         flexDirection: "row",
+    },
+    title: {
+        fontSize: 32,
+        width: 120,
+        height: 50,
+    },
+    topBar: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        padding: 10,
+        paddingTop: 30,
     },
 });
 
